@@ -1,4 +1,4 @@
-# Descarte Certo - Quiz da Coleta Seletiva
+# Jogo Interativo (Quiz) - Conscientização Ambiental Corporativa
 
 Quiz desenvolvido com HTML, CSS e JavaScript sobre a separação de resíduos, baseado na Cartilha Ambiental de empresa privada.
 Os resultados são armazenados no Supabase, com o objetivo de permitir a posterior análise do desempenho dos colaboradores.
@@ -7,9 +7,10 @@ Essa análise possibilita o entendimento mais assertivo do nível de conheciment
 # Estrutura
 
 ```
-quiz-descarte-certo/
+projeto_atividade_extensionista/
 ├── assets/(imagens e cartilha-ambiental.pdf)
 ├── index.html
+├── LICENSE
 ├── README.md
 ├── script.js
 ├── style.css
@@ -20,11 +21,11 @@ quiz-descarte-certo/
 
 1 - No SQL Editor referente ao Supabase, é necessário executar o conteúdo de 'supabase-schema.sql', que resulta na criação da tabela 'quiz_resultados'.
 2 - As credenciais do Supabase ('SUPABASE_URL' e 'SUPABASE_ANON_KEY') constam no arquivo 'script.js'.
-3 - Para acesso ao site, é necessário a abertura do arquivo 'index.html' no navegador ou o uso da extensão Live Server junto ao VS Code.
+3 - Para acesso ao site, é necessário a abertura do arquivo 'index.html' no navegador ou o uso, por exemplo, da extensão Live Server junto ao VS Code.
 
 # Consultar resultados
 
-A cosulta dos resultados deve ser efetuada por meio do Supabase, em Table Editor -> quiz_resultados, ou via comando SQL abaixo:
+A consulta dos resultados deve ser efetuada por meio do Supabase, em Table Editor -> quiz_resultados, ou via comando SQL abaixo:
 
 ```
 select * from quiz_resultados order by data_hora desc;
