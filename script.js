@@ -300,6 +300,13 @@ const BANCO_DE_PERGUNTAS = [
   },
   {
     categoria: "geral",
+    enunciado: "Segundo a cartilha, qual é a forma correta de descartar cartelas (blisters) de remédio vazias?",
+    opcoes: ["Junto com o vidro reciclável", "No rejeito", "Em pontos de destinação específicos", "Na lixeira de metal, junto com latas"],
+    indiceCorreto: 2,
+    explicacao: "Assim como pilhas e lâmpadas, os blisters de remédio possuem pontos de destinação específicos, com link indicado na cartilha para descarte correto em Florianópolis."
+  },
+  {
+    categoria: "geral",
     enunciado: "Evitar aceitar sacolas plásticas e itens descartáveis desnecessários é um exemplo de qual R?",
     opcoes: ["Reduzir", "Reutilizar", "Recusar", "Reciclar"],
     indiceCorreto: 2,
@@ -417,47 +424,47 @@ const PERGUNTAS_POR_RODADA = 10;
 let perguntasDaRodada = [];
 let indiceAtual = 0;
 
-const telaInicio = document.getElementById("screen-start");
-const telaQuiz = document.getElementById("screen-quiz");
-const telaResultado = document.getElementById("screen-result");
+const telaInicio = document.getElementById("tela-inicio");
+const telaQuiz = document.getElementById("tela-quiz");
+const telaResultado = document.getElementById("tela-resultado");
 
-const botaoComecar = document.getElementById("btn-start");
-const botaoAnterior = document.getElementById("btn-prev");
-const botaoProximo = document.getElementById("btn-next");
-const botaoEncerrar = document.getElementById("btn-finish");
-const botaoReiniciar = document.getElementById("btn-restart");
+const botaoIniciar = document.getElementById("botao-iniciar");
+const botaoAnterior = document.getElementById("botao-anterior");
+const botaoProxima = document.getElementById("botao-proxima");
+const botaoEncerrar = document.getElementById("botao-encerrar");
+const botaoReiniciar = document.getElementById("botao-reiniciar");
 
 const inputNome = document.getElementById("input-nome");
 const inputSobrenome = document.getElementById("input-sobrenome");
-const erroJogador = document.getElementById("player-error");
+const erroJogador = document.getElementById("erro-jogador");
 
-const emblemaCategoria = document.getElementById("category-badge");
-const rotuloCategoria = document.getElementById("category-label");
-const pontuacaoAoVivo = document.getElementById("live-score");
-const trilhaProgresso = document.getElementById("progress-track");
-const indicePerguntaEl = document.getElementById("q-index");
-const totalPerguntasEl = document.getElementById("q-total");
-const midiaPergunta = document.getElementById("question-media");
-const imagemPergunta = document.getElementById("question-image");
-const creditoImagem = document.getElementById("question-image-credit");
-const textoPergunta = document.getElementById("question-text");
-const listaOpcoes = document.getElementById("options-list");
-const caixaFeedback = document.getElementById("feedback-box");
-const veredictoFeedback = document.getElementById("feedback-verdict");
-const explicacaoFeedback = document.getElementById("feedback-explanation");
+const seloCategoria = document.getElementById("selo-categoria");
+const rotuloCategoria = document.getElementById("rotulo-categoria");
+const pontuacaoAtiva = document.getElementById("pontuacao-ativa");
+const trilhaProgresso = document.getElementById("trilha-progresso");
+const indicePergunta = document.getElementById("indice-pergunta");
+const totalPerguntas = document.getElementById("total-perguntas");
+const midiaPergunta = document.getElementById("midia-pergunta");
+const imagemPergunta = document.getElementById("imagem-pergunta");
+const creditoImagemPergunta = document.getElementById("credito-imagem-pergunta");
+const textoPergunta = document.getElementById("texto-pergunta");
+const listaOpcoes = document.getElementById("lista-opcoes");
+const caixaFeedback = document.getElementById("caixa-feedback");
+const vereditoFeedback = document.getElementById("veredito-feedback");
+const explicacaoFeedback = document.getElementById("explicacao-feedback");
 
-const pontuacaoFinal = document.getElementById("final-score");
-const statAcertos = document.getElementById("stat-correct");
-const statErros = document.getElementById("stat-wrong");
-const statNaoRespondidasBox = document.getElementById("stat-unanswered-box");
-const statNaoRespondidas = document.getElementById("stat-unanswered");
-const tituloResultado = document.getElementById("result-title");
-const textoResultado = document.getElementById("result-copy");
-const listaRevisao = document.getElementById("review-list");
+const pontuacaoFinal = document.getElementById("pontuacao-final");
+const estatisticaCorretas = document.getElementById("estatistica-corretas");
+const estatisticaErradas = document.getElementById("estatistica-erradas");
+const caixaEstatisticaNaoRespondidas = document.getElementById("caixa-estatistica-nao-respondidas");
+const estatisticaNaoRespondidas = document.getElementById("estatistica-nao-respondidas");
+const tituloResultado = document.getElementById("titulo-resultado");
+const textoResultado = document.getElementById("texto-resultado");
+const listaGabarito = document.getElementById("lista-gabarito");
 
 let jogador = { nome: "", sobrenome: "" };
 
-totalPerguntasEl.textContent = PERGUNTAS_POR_RODADA;
+totalPerguntas.textContent = PERGUNTAS_POR_RODADA;
 
 function embaralhar(lista) {
   const copia = lista.slice();
@@ -469,8 +476,8 @@ function embaralhar(lista) {
 }
 
 function mostrarTela(tela) {
-  [telaInicio, telaQuiz, telaResultado].forEach(cadaTela => cadaTela.classList.add("hidden"));
-  tela.classList.remove("hidden");
+  [telaInicio, telaQuiz, telaResultado].forEach(cadaTela => cadaTela.classList.add("oculto"));
+  tela.classList.remove("oculto");
 }
 
 function iniciarRodada() {
@@ -489,7 +496,7 @@ function criarPontosProgresso() {
   for (let i = 0; i < PERGUNTAS_POR_RODADA; i++) {
     const ponto = document.createElement("button");
     ponto.type = "button";
-    ponto.className = "dot";
+    ponto.className = "ponto";
     ponto.setAttribute("aria-label", `Ir para a pergunta ${i + 1}`);
     ponto.addEventListener("click", () => {
       indiceAtual = i;
@@ -500,11 +507,11 @@ function criarPontosProgresso() {
 }
 
 function atualizarPontosProgresso() {
-  const pontos = trilhaProgresso.querySelectorAll(".dot");
+  const pontos = trilhaProgresso.querySelectorAll(".ponto");
   pontos.forEach((ponto, i) => {
     const pergunta = perguntasDaRodada[i];
-    ponto.classList.toggle("done", !!pergunta.respostaUsuario);
-    ponto.classList.toggle("current", i === indiceAtual);
+    ponto.classList.toggle("concluido", !!pergunta.respostaUsuario);
+    ponto.classList.toggle("atual", i === indiceAtual);
   });
 }
 
@@ -516,28 +523,28 @@ function renderizarPergunta() {
   const pergunta = perguntasDaRodada[indiceAtual];
 
   const metadados = METADADOS_CATEGORIA[pergunta.categoria];
-  emblemaCategoria.style.setProperty("--c", metadados.cor);
+  seloCategoria.style.setProperty("--c", metadados.cor);
   rotuloCategoria.textContent = metadados.rotulo;
 
-  pontuacaoAoVivo.textContent = pontuacaoAtual();
-  indicePerguntaEl.textContent = indiceAtual + 1;
+  pontuacaoAtiva.textContent = pontuacaoAtual();
+  indicePergunta.textContent = indiceAtual + 1;
   atualizarPontosProgresso();
 
   if (metadados.imagem) {
     imagemPergunta.src = metadados.imagem;
     imagemPergunta.alt = metadados.textoAlternativo || "";
-    midiaPergunta.classList.remove("hidden");
+    midiaPergunta.classList.remove("oculto");
 
     if (metadados.credito) {
-      creditoImagem.href = metadados.credito.url;
-      creditoImagem.textContent = metadados.credito.texto;
-      creditoImagem.classList.remove("hidden");
+      creditoImagemPergunta.href = metadados.credito.url;
+      creditoImagemPergunta.textContent = metadados.credito.texto;
+      creditoImagemPergunta.classList.remove("oculto");
     } else {
-      creditoImagem.classList.add("hidden");
+      creditoImagemPergunta.classList.add("oculto");
     }
   } else {
     imagemPergunta.src = "";
-    midiaPergunta.classList.add("hidden");
+    midiaPergunta.classList.add("oculto");
   }
 
   textoPergunta.textContent = pergunta.enunciado;
@@ -548,18 +555,18 @@ function renderizarPergunta() {
 
   pergunta.opcoesEmbaralhadas.forEach((opcao, i) => {
     const botao = document.createElement("button");
-    botao.className = "option-btn";
+    botao.className = "botao-opcao";
     botao.type = "button";
-    botao.innerHTML = `<span class="option-letter">${letras[i]}</span><span>${opcao.texto}</span>`;
+    botao.innerHTML = `<span class="letra-opcao">${letras[i]}</span><span>${opcao.texto}</span>`;
 
     if (jaRespondida) {
       botao.disabled = true;
       if (opcao.correta) {
-        botao.classList.add("correct");
+        botao.classList.add("correta");
       } else if (i === pergunta.respostaUsuario.indiceEscolhido) {
-        botao.classList.add("wrong");
+        botao.classList.add("errada");
       } else {
-        botao.classList.add("dim");
+        botao.classList.add("esmaecido");
       }
     } else {
       botao.addEventListener("click", () => selecionarResposta(i));
@@ -571,22 +578,22 @@ function renderizarPergunta() {
   if (jaRespondida) {
     mostrarFeedback(pergunta);
   } else {
-    caixaFeedback.classList.add("hidden");
-    caixaFeedback.classList.remove("is-correct", "is-wrong");
+    caixaFeedback.classList.add("oculto");
+    caixaFeedback.classList.remove("esta-correta", "esta-errada");
   }
 
   botaoAnterior.disabled = indiceAtual === 0;
   const ultimaPergunta = indiceAtual === PERGUNTAS_POR_RODADA - 1;
-  botaoProximo.textContent = ultimaPergunta ? "Finalizar quiz" : "Próxima pergunta";
-  botaoProximo.disabled = false;
+  botaoProxima.textContent = ultimaPergunta ? "Finalizar quiz" : "Próxima pergunta";
+  botaoProxima.disabled = false;
 }
 
 function mostrarFeedback(pergunta) {
   const correta = pergunta.respostaUsuario.correta;
-  caixaFeedback.classList.remove("hidden");
-  caixaFeedback.classList.remove("is-correct", "is-wrong");
-  caixaFeedback.classList.add(correta ? "is-correct" : "is-wrong");
-  veredictoFeedback.textContent = correta ? "Correto!" : "Não foi dessa vez.";
+  caixaFeedback.classList.remove("oculto");
+  caixaFeedback.classList.remove("esta-correta", "esta-errada");
+  caixaFeedback.classList.add(correta ? "esta-correta" : "esta-errada");
+  vereditoFeedback.textContent = correta ? "Correto!" : "Não foi dessa vez.";
   explicacaoFeedback.textContent = correta
     ? pergunta.explicacao
     : `Resposta correta: "${pergunta.opcoes[pergunta.indiceCorreto]}". ${pergunta.explicacao}`;
@@ -602,22 +609,22 @@ function selecionarResposta(indiceEscolhido) {
   renderizarPergunta();
 }
 
-botaoComecar.addEventListener("click", () => {
+botaoIniciar.addEventListener("click", () => {
   const nome = inputNome.value.trim();
   const sobrenome = inputSobrenome.value.trim();
 
   const nomeValido = nome.length >= 2;
   const sobrenomeValido = sobrenome.length >= 2;
 
-  inputNome.classList.toggle("invalid", !nomeValido);
-  inputSobrenome.classList.toggle("invalid", !sobrenomeValido);
+  inputNome.classList.toggle("invalido", !nomeValido);
+  inputSobrenome.classList.toggle("invalido", !sobrenomeValido);
 
   if (!nomeValido || !sobrenomeValido) {
-    erroJogador.classList.remove("hidden");
+    erroJogador.classList.remove("oculto");
     return;
   }
 
-  erroJogador.classList.add("hidden");
+  erroJogador.classList.add("oculto");
   jogador = { nome, sobrenome };
   iniciarRodada();
 });
@@ -629,7 +636,7 @@ botaoAnterior.addEventListener("click", () => {
   }
 });
 
-botaoProximo.addEventListener("click", () => {
+botaoProxima.addEventListener("click", () => {
   if (indiceAtual < PERGUNTAS_POR_RODADA - 1) {
     indiceAtual++;
     renderizarPergunta();
@@ -670,15 +677,15 @@ function encerrarRodada() {
   const quantidadeRespondidas = quantidadeCorretas + quantidadeErradas;
 
   pontuacaoFinal.textContent = quantidadeCorretas;
-  document.querySelector(".score-of").textContent = `/${PERGUNTAS_POR_RODADA}`;
-  statAcertos.textContent = quantidadeCorretas;
-  statErros.textContent = quantidadeErradas;
+  document.querySelector(".pontuacao-total").textContent = `/${PERGUNTAS_POR_RODADA}`;
+  estatisticaCorretas.textContent = quantidadeCorretas;
+  estatisticaErradas.textContent = quantidadeErradas;
 
   if (quantidadeNaoRespondidas > 0) {
-    statNaoRespondidas.textContent = quantidadeNaoRespondidas;
-    statNaoRespondidasBox.classList.remove("hidden");
+    estatisticaNaoRespondidas.textContent = quantidadeNaoRespondidas;
+    caixaEstatisticaNaoRespondidas.classList.remove("oculto");
   } else {
-    statNaoRespondidasBox.classList.add("hidden");
+    caixaEstatisticaNaoRespondidas.classList.add("oculto");
   }
 
   if (quantidadeRespondidas === 0) {
@@ -704,29 +711,29 @@ function encerrarRodada() {
 }
 
 function renderizarRevisao() {
-  listaRevisao.innerHTML = "";
+  listaGabarito.innerHTML = "";
   perguntasDaRodada.forEach((pergunta, indice) => {
     const elemento = document.createElement("div");
     const naoRespondida = !pergunta.respostaUsuario;
     const correta = pergunta.respostaUsuario && pergunta.respostaUsuario.correta;
 
-    elemento.className = "review-item" + (naoRespondida ? " is-unanswered" : correta ? "" : " is-wrong");
+    elemento.className = "item-gabarito" + (naoRespondida ? " esta-nao-respondida" : correta ? "" : " esta-errada");
 
     let linhaResposta;
     if (naoRespondida) {
-      linhaResposta = `<p class="review-answer">Não respondida — Correta: <strong>${pergunta.opcoes[pergunta.indiceCorreto]}</strong></p>`;
+      linhaResposta = `<p class="resposta-gabarito">Não respondida — Correta: <strong>${pergunta.opcoes[pergunta.indiceCorreto]}</strong></p>`;
     } else if (correta) {
-      linhaResposta = `<p class="review-answer">Sua resposta: <strong>${pergunta.opcoesEmbaralhadas[pergunta.respostaUsuario.indiceEscolhido].texto}</strong> ✓</p>`;
+      linhaResposta = `<p class="resposta-gabarito">Sua resposta: <strong>${pergunta.opcoesEmbaralhadas[pergunta.respostaUsuario.indiceEscolhido].texto}</strong> ✓</p>`;
     } else {
       const textoEscolhido = pergunta.opcoesEmbaralhadas[pergunta.respostaUsuario.indiceEscolhido].texto;
-      linhaResposta = `<p class="review-answer">Sua resposta: <strong>${textoEscolhido}</strong> — Correta: <strong>${pergunta.opcoes[pergunta.indiceCorreto]}</strong></p>`;
+      linhaResposta = `<p class="resposta-gabarito">Sua resposta: <strong>${textoEscolhido}</strong> — Correta: <strong>${pergunta.opcoes[pergunta.indiceCorreto]}</strong></p>`;
     }
 
     elemento.innerHTML = `
-      <p class="review-q">${indice + 1}. ${pergunta.enunciado}</p>
+      <p class="pergunta-gabarito">${indice + 1}. ${pergunta.enunciado}</p>
       ${linhaResposta}
-      ${(!correta) ? `<p class="review-explain">${pergunta.explicacao}</p>` : ""}
+      ${(!correta) ? `<p class="explicacao-gabarito">${pergunta.explicacao}</p>` : ""}
     `;
-    listaRevisao.appendChild(elemento);
+    listaGabarito.appendChild(elemento);
   });
 }
