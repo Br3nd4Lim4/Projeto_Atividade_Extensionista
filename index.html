@@ -11,12 +11,12 @@
 </head>
 <body>
 
-<div class="top-stripe" aria-hidden="true"></div>
+<div class="faixa-superior" aria-hidden="true"></div>
 
-<header class="app-header">
-  <div class="header-inner">
-    <div class="brand">
-      <span class="brand-mark">
+<header class="cabecalho-app">
+  <div class="cabecalho-interno">
+    <div class="marca">
+      <span class="marca-simbolo">
         <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 8l1.5 12a2 2 0 002 1.8h9a2 2 0 002-1.8L20 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M2.5 8h19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
@@ -24,128 +24,128 @@
           <path d="M9.5 11.5v6M14.5 11.5v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
       </span>
-      <div class="brand-text">
-        <p class="eyebrow">Jogo Interativo · Quiz</p>
+      <div class="marca-texto">
+        <p class="sobretitulo">Jogo Interativo · Quiz</p>
         <h1>Conscientização Ambiental Corporativa</h1>
       </div>
     </div>
   </div>
 </header>
 
-<main class="stage">
+<main class="palco">
 
-    <section id="screen-start" class="screen">
-    <div class="card intro-card">
+    <section id="tela-inicio" class="tela">
+    <div class="cartao cartao-intro">
       <h2>Você conhece as políticas de descarte de resíduos da empresa?</h2>
-      <p class="intro-copy">
+      <p class="texto-introducao">
         Quiz contendo 10 perguntas sorteadas de um banco de 50 questões, com base na Cartilha Ambiental versão 4 (Fevereiro de 2026).
         A cada rodada as perguntas mudam. Teste seus conhecimentos sobre os temas abaixo, os 5 R's e 
         as ações de sustentabilidade da empresa.
       </p>
-      <p class="kicker">TEMAS:</p>
-      <div class="bin-row" aria-hidden="true">
-        <span class="bin-chip" style="--c:#D64545">Plástico</span>
-        <span class="bin-chip" style="--c:#2A9D5C">Vidro</span>
-        <span class="bin-chip" style="--c:#2F6FED">Papel</span>
-        <span class="bin-chip" style="--c:#C98F00">Metal</span>
-        <span class="bin-chip" style="--c:#6F4E37">Orgânico</span>
-        <span class="bin-chip" style="--c:#6B6B6B">Rejeito</span>
+      <p class="etiqueta">TEMAS:</p>
+      <div class="linha-lixeiras" aria-hidden="true">
+        <span class="chip-lixeira" style="--c:#D64545">Plástico</span>
+        <span class="chip-lixeira" style="--c:#2A9D5C">Vidro</span>
+        <span class="chip-lixeira" style="--c:#2F6FED">Papel</span>
+        <span class="chip-lixeira" style="--c:#C98F00">Metal</span>
+        <span class="chip-lixeira" style="--c:#6F4E37">Orgânico</span>
+        <span class="chip-lixeira" style="--c:#6B6B6B">Rejeito</span>
       </div>
 
-      <div class="player-form">
-        <div class="field">
+      <div class="formulario-jogador">
+        <div class="campo">
           <label for="input-nome">Nome</label>
           <input type="text" id="input-nome" placeholder="Seu nome" autocomplete="given-name" maxlength="100">
         </div>
-        <div class="field">
+        <div class="campo">
           <label for="input-sobrenome">Sobrenome</label>
           <input type="text" id="input-sobrenome" placeholder="Seu sobrenome" autocomplete="family-name" maxlength="100">
         </div>
       </div>
-      <p id="player-error" class="player-error hidden">Preencha seu nome e sobrenome para começar.</p>
+      <p id="erro-jogador" class="erro-jogador oculto">Preencha seu nome e sobrenome para começar.</p>
 
-      <button id="btn-start" class="btn btn-primary">Começar quiz</button>
+      <button id="botao-iniciar" class="botao botao-primario">Começar quiz</button>
     </div>
   </section>
 
-    <section id="screen-quiz" class="screen hidden">
-    <div class="quiz-top">
-      <div class="category-badge" id="category-badge">
+    <section id="tela-quiz" class="tela oculto">
+    <div class="topo-quiz">
+      <div class="selo-categoria" id="selo-categoria">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 8l1.5 12a2 2 0 002 1.8h9a2 2 0 002-1.8L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M2.5 8h19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           <path d="M9 5.5c0-1 1-1.8 3-1.8s3 .8 3 1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <span id="category-label">Categoria</span>
+        <span id="rotulo-categoria">Categoria</span>
       </div>
-      <div class="quiz-top-right">
-        <div class="score-pill">Pontos: <strong id="live-score">0</strong></div>
-        <button id="btn-finish" class="btn btn-outline btn-small">Encerrar quiz</button>
+      <div class="topo-quiz-direita">
+        <div class="pilula-pontuacao">Pontos: <strong id="pontuacao-ativa">0</strong></div>
+        <button id="botao-encerrar" class="botao botao-contorno botao-pequeno">Encerrar quiz</button>
       </div>
     </div>
 
-        <div class="progress-track" id="progress-track" aria-hidden="true"></div>
-    <p class="progress-text"><span id="q-index">1</span> de <span id="q-total">10</span></p>
+        <div class="trilha-progresso" id="trilha-progresso" aria-hidden="true"></div>
+    <p class="texto-progresso"><span id="indice-pergunta">1</span> de <span id="total-perguntas">10</span></p>
 
-    <div class="card question-card">
+    <div class="cartao cartao-pergunta">
 
-            <div id="question-media" class="question-media hidden">
-        <img id="question-image" class="question-image" src="" alt="">
-        <a id="question-image-credit" class="image-credit hidden" href="#" target="_blank" rel="noopener noreferrer"></a>
+            <div id="midia-pergunta" class="midia-pergunta oculto">
+        <img id="imagem-pergunta" class="imagem-pergunta" src="" alt="">
+        <a id="credito-imagem-pergunta" class="credito-imagem oculto" href="#" target="_blank" rel="noopener noreferrer"></a>
       </div>
 
-      <h2 id="question-text">Pergunta</h2>
-      <div id="options-list" class="options-list"></div>
+      <h2 id="texto-pergunta">Pergunta</h2>
+      <div id="lista-opcoes" class="lista-opcoes"></div>
 
-      <div id="feedback-box" class="feedback-box hidden">
-        <p id="feedback-verdict" class="feedback-verdict"></p>
-        <p id="feedback-explanation" class="feedback-explanation"></p>
+      <div id="caixa-feedback" class="caixa-feedback oculto">
+        <p id="veredito-feedback" class="veredito-feedback"></p>
+        <p id="explicacao-feedback" class="explicacao-feedback"></p>
       </div>
 
-      <div class="nav-buttons">
-        <button id="btn-prev" class="btn btn-outline" disabled>Anterior</button>
-        <button id="btn-next" class="btn btn-primary">Próxima pergunta</button>
+      <div class="botoes-navegacao">
+        <button id="botao-anterior" class="botao botao-contorno" disabled>Anterior</button>
+        <button id="botao-proxima" class="botao botao-primario">Próxima pergunta</button>
       </div>
     </div>
   </section>
 
-    <section id="screen-result" class="screen hidden">
-    <div class="card result-summary">
-      <p class="kicker">Resultado</p>
-      <div class="score-circle" id="score-circle">
-        <span id="final-score">0</span><span class="score-of">/10</span>
+    <section id="tela-resultado" class="tela oculto">
+    <div class="cartao resumo-resultado">
+      <p class="etiqueta">Resultado</p>
+      <div class="circulo-pontuacao" id="circulo-pontuacao">
+        <span id="pontuacao-final">0</span><span class="pontuacao-total">/10</span>
       </div>
-      <h2 id="result-title">Bom trabalho!</h2>
-      <p id="result-copy" class="intro-copy">Confira abaixo o que você acertou e errou.</p>
+      <h2 id="titulo-resultado">Bom trabalho!</h2>
+      <p id="texto-resultado" class="texto-introducao">Confira abaixo o que você acertou e errou.</p>
 
-      <div class="result-stats">
-        <div class="stat stat-correct">
-          <span class="stat-num" id="stat-correct">0</span>
-          <span class="stat-label">Corretas</span>
+      <div class="estatisticas-resultado">
+        <div class="estatistica estatistica-corretas">
+          <span class="numero-estatistica" id="estatistica-corretas">0</span>
+          <span class="rotulo-estatistica">Corretas</span>
         </div>
-        <div class="stat stat-wrong">
-          <span class="stat-num" id="stat-wrong">0</span>
-          <span class="stat-label">Incorretas</span>
+        <div class="estatistica estatistica-erradas">
+          <span class="numero-estatistica" id="estatistica-erradas">0</span>
+          <span class="rotulo-estatistica">Incorretas</span>
         </div>
-        <div class="stat stat-unanswered hidden" id="stat-unanswered-box">
-          <span class="stat-num" id="stat-unanswered">0</span>
-          <span class="stat-label">Não respondidas</span>
+        <div class="estatistica estatistica-nao-respondidas oculto" id="caixa-estatistica-nao-respondidas">
+          <span class="numero-estatistica" id="estatistica-nao-respondidas">0</span>
+          <span class="rotulo-estatistica">Não respondidas</span>
         </div>
       </div>
 
-      <div class="result-actions">
-        <button id="btn-restart" class="btn btn-primary">Jogar novamente</button>
-        <a id="link-cartilha" class="btn btn-outline" href="assets/cartilha-ambiental.pdf" target="_blank" rel="noopener noreferrer">Ver cartilha ambiental</a>
+      <div class="acoes-resultado">
+        <button id="botao-reiniciar" class="botao botao-primario">Jogar novamente</button>
+        <a id="link-cartilha" class="botao botao-contorno" href="assets/cartilha-ambiental.pdf" target="_blank" rel="noopener noreferrer">Ver cartilha ambiental</a>
       </div>
     </div>
 
-    <h3 class="gabarito-title">Gabarito</h3>
-    <div id="review-list" class="review-list"></div>
+    <h3 class="titulo-gabarito">Gabarito</h3>
+    <div id="lista-gabarito" class="lista-gabarito"></div>
   </section>
 
 </main>
 
-<footer class="app-footer">
+<footer class="rodape-app">
   <p>Baseado na Cartilha Ambiental ESG - Plano de Gerenciamento de Resíduos Sólidos e Uso Consciente dos Recursos Naturais - Versão 4 | Fevereiro de 2026.</p>
 </footer>
 
